@@ -6,7 +6,6 @@
  *
  */
 function MainCtrl($templateCache) {
-
     //$templateCache.removeAll();
     /**
      * daterange - Used as initial model for data range picker in Advanced form view
@@ -1003,4 +1002,3 @@ angular
     .controller('chartJsCtrl', chartJsCtrl)
     .controller('flotChartCtrl', flotChartCtrl)
     .controller('widgetFlotChart', widgetFlotChart)
-

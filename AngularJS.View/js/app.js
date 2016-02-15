@@ -2,6 +2,9 @@
  * INSPINIA - Responsive Admin Theme
  *
  */
+ var URI = 'http://localhost:49435/Api/';
+ //var URI_Node = 'http://nodejs-lmolinari.rhcloud.com/';
+ var URI_Node = 'http://localhost:8080/';
 (function () {
     angular.module('inspinia', [
         'ui.router',                    // Routing

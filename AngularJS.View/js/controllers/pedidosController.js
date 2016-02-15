@@ -1,22 +1,22 @@
 ﻿function metodosPedido($http, ENDPOINT_URI) {
     var service = this;//,
-    //pathAdd = 'Pessoas',
+    var pathAdd = 'Pedidos';
     //pathUpd = 'Pessoas/Pessoa/';
 
-    service.Salvar = function (item, isUpdate) {
-        //if(isUpdate)
-        //    return executeAPI($http, 'PUT', URI_Node + pathUpd + item.IdPessoa, item);
-        //else
-        //    return executeAPI($http, 'POST', URI_Node + pathAdd, item);
+    service.Salvar = function (item) {
+        return executeAPI($http, 'POST', URI_Node + pathAdd, item);
     };
 }
-function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, SweetAlert, formaPagamento, materialColetado) {
+function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, SweetAlert, formaPagamento, materialColetado, Cliente) {
+
     $scope.Cliente = {
         Enderecos: new Array(),
         Contatos: new Array(),
         TipoPessoa: 1
     };
-    $scope.Produto = {};
+    $scope.ProdutoInit = {Prazo:5, DataEntrega: new Date(), Quantidade: 1, Valor: "1.00"}
+    $scope.Produto = { Prazo:5};
+    $scope.Produtos = [];
     $scope.Endereco = {};
     $scope.Contato = {};
     $scope.salvarNovoEnd = false;
@@ -27,13 +27,25 @@ function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, Swee
     $scope.isNovoCliente = false;
     $scope.FormasPagamentos = [];
     $scope.MateriaisColetados = [];
+    $scope.dateOptions = {
+     formatYear: 'yy',
+      startingDay: 1
+    };
+    $scope.popup = {
+      opened: false
+    };
+    $scope.openCalendar = function() {
+      $scope.popup.opened = true;
+    };
+    angular.copy($scope.ProdutoInit, $scope.Produto);
     formaPagamento.GetFormaPagamentos().then(function(resultado){
         $scope.FormasPagamentos = resultado.data;
-    })
+    });
+
     materialColetado.GetMateriaisColetados().then(function(resultado){
         $scope.MateriaisColetados = resultado.data;
-    })
-    console.log($scope);
+    });
+
     $scope.FindCEP = function () {
         var endereco = procuraCEP($('#txtCep').val());
 
@@ -213,7 +225,7 @@ function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, Swee
                                 CPF: cpf,
                                 CNPJ: cnpj
                             };
-                            
+
                             $scope.Endereco = {};
                             $scope.Contato = {};
                         }
@@ -223,7 +235,7 @@ function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, Swee
                                 Contatos: new Array(),
                                 TipoPessoa: 1
                             };
-                            
+
                             $scope.Endereco = {};
                             $scope.Contato = {};
                         }
@@ -242,6 +254,36 @@ function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, Swee
         }
     }
 
+    $scope.addProduto = function(){
+      var hasError = $scope.Produto.FormaPagamento && $scope.Produto.MaterialColetado;
+      var message = "";
+      if(!$scope.Produto.FormaPagamento){
+        message += "Selecione uma forma de pagamento!\n\b";
+      }
+      if(!$scope.Produto.MaterialColetado){
+        message += "Selecione uma tipo de material coletado!\n\b";
+      }
+      if(hasError){
+        $scope.Produto.ValorTotal = $scope.Produto.Valor * $scope.Produto.Quantidade;
+        var produto = {};
+        angular.copy($scope.Produto, produto);
+        $scope.Produtos.push(produto);
+        angular.copy($scope.ProdutoInit, $scope.Produto);
+      }
+      else{
+        SweetAlert.swal({
+            title: "Atenção!",
+            text: message,
+            type: "warning",
+            showCancelButton: false,
+            //confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Ok",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          });
+      }
+    }
+
     $scope.Salvar = function () {
         if($scope.isNovoCliente){
             if ($scope.Cliente.Contatos === undefined) {
@@ -255,16 +297,50 @@ function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, Swee
             angular.forEach($scope.Cliente.Enderecos, function (value, key) {
                 value.Endereco.CEP = value.Endereco.CEP.replace('-', '');
             });
-            executeAPI($http, 'POST', URI_Node + 'Pessoas', $scope.Cliente).then(function (result) {
-                    console.log(result);
-                    //$scope.salved = result;
-                    if (result.data.Success)
-                       {}
-                    else
-                        {}
-                });
+            Cliente.Salvar( $scope.Cliente, false ).then(function (result) {
+                console.log(result);
+                //$scope.salved = result;
+                if (result.data.Success){
+                  $scope.GerarPedido(result.data.Model);
+                }
+                else
+                    SweetAlert.swal({
+                        title: "Erro!",
+                        text: "Não foi possível salvar o cliente!\n" + result.data.Mensagem,
+                        type: "warning",
+                        showCancelButton: false,
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: true,
+                        closeOnCancel: false
+                    });
+            });
+        }
+        else{
+            $scope.GerarPedido($scope.Cliente);
         }
 
+    }
+    $scope.GerarPedido = function( cliente){
+      var total = 0;
+      angular.forEach($scope.Produtos, function(value, key){
+        total += value.ValorTotal;
+      });
+      var pedido = { ItensPedidos: $scope.Produtos, Cliente:  cliente, EndEntrega: $scope.Endereco, Status: "Pendente", Total: total  };
+      Pedido.Salvar(pedido).then(function(result){
+        debugger;
+        if(result.data.Success){
+          SweetAlert.swal({
+              title: "Sucesso!",
+              text: "Pedido salvo com sucesso!",
+              type: "success"
+          },
+          function (isConfirm) {
+              if (isConfirm) {
+                  $window.location.reload();
+              }
+          });
+        }
+      });
     }
 }
 

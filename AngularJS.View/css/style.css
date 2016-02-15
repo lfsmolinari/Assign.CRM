@@ -1755,7 +1755,7 @@ table.dataTable thead .sorting:after {
     border-radius: 1px;
     color: inherit;
     display: block;
-    padding: 6px 12px;
+    padding: 6px 6px;
     transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
     width: 100%;
     font-size: 14px;

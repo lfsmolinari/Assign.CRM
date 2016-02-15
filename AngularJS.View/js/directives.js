@@ -409,6 +409,24 @@ function fitHeight(){
         }
     };
 }
+function inputNumber(){
+  return{
+    restrict:'E',
+    scope: {max: '@', min:'@', cssClass:'@', ngModel:"="},
+    template: "<input type='number' min='{{min}}' max='{{max}}' class='{{cssClass}}' ng-model='ngModel'></input>",
+    link: function(scope, element){
+      console.log(scope);
+      element.on("input", function (event) {
+          var $input = angular.element(event.target),
+              maxlength = $input.attr('max').trim().length;
+          if ($input.val() >= maxlength) {
+              $input.val($input.val().slice(0, maxlength));
+          }
+
+      });
+    }
+  };
+}
 
 /**
  *
@@ -432,4 +450,5 @@ angular
     .directive('closeOffCanvas', closeOffCanvas)
     .directive('clockPicker', clockPicker)
     .directive('landingScrollspy', landingScrollspy)
-    .directive('fitHeight', fitHeight);
+    .directive('fitHeight', fitHeight)
+    .directive('inputNumber',inputNumber);

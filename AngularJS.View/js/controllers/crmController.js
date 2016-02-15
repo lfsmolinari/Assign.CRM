@@ -1,7 +1,4 @@
 ﻿/// <reference path="../angular.js" />
-var URI = 'http://localhost:49435/Api/';
-var URI_Node = 'http://nodejs-lmolinari.rhcloud.com/';
-//var URI_Node = 'http://localhost:8080/';
 
 function executeAPI($http, metodo, url, item) {
     return $http({
