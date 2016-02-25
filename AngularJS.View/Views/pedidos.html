@@ -193,16 +193,16 @@
                 <div class="col-lg-6">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Dados da Ca&ccedil;amba</h5>
+                            <h5>Dados do Pedido</h5>
 
                             <!--<div ibox-tools></div>-->
                         </div>
                         <div class="ibox-content">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="form-group col-sm-5">
+                                    <div class="form-group col-sm-12">
                                         <label>Forma de Pagamento:</label>
-                                        <select id="formaPgts" name="formaPgts" class="form-control" data-ng-model="Produto.FormaPagamento" required data-ng-options="c as c.Descricao for c in FormasPagamentos track by c._id">
+                                        <select id="formaPgts" name="formaPgts" class="form-control" data-ng-model="FormaPagamento" required data-ng-options="c as c.Descricao for c in FormasPagamentos track by c._id">
                                             <option value="">- Selecione -</option>
                                         </select>
                                     </div>
@@ -213,7 +213,7 @@
                                           <span class="btn input-group-addon" ng-click="popup.opened = true;"><i class="fa fa-calendar"></i></span>
                                         </div>
                                     </div>
-                                    <div class="form-group col-sm-2">
+                                    <div class="form-group col-sm-3">
                                         <label>Prazo:</label>
                                         <input-number min="1"  max="99" css-class="form-control" ng-model="Produto.Prazo"></input-number>
                                         <!-- <input type="number" min="1" placeholder="" max="99" max-length="2" class="form-control"> -->

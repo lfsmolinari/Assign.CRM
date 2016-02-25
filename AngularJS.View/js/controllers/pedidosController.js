@@ -255,15 +255,12 @@ function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, Swee
     }
 
     $scope.addProduto = function(){
-      var hasError = $scope.Produto.FormaPagamento && $scope.Produto.MaterialColetado;
+      var noError =$scope.Produto.MaterialColetado;
       var message = "";
-      if(!$scope.Produto.FormaPagamento){
-        message += "Selecione uma forma de pagamento!\n\b";
-      }
       if(!$scope.Produto.MaterialColetado){
         message += "Selecione uma tipo de material coletado!\n\b";
       }
-      if(hasError){
+      if(noError){
         $scope.Produto.ValorTotal = $scope.Produto.Valor * $scope.Produto.Quantidade;
         var produto = {};
         angular.copy($scope.Produto, produto);
@@ -285,6 +282,21 @@ function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, Swee
     }
 
     $scope.Salvar = function () {
+      debugger;
+      if(!$scope.FormaPagamento){
+        var  message = "Selecione uma forma de pagamento!\n\b";
+        SweetAlert.swal({
+            title: "Atenção!",
+            text: message,
+            type: "warning",
+            showCancelButton: false,
+            //confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Ok",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          });
+      }
+      else {
         if($scope.isNovoCliente){
             if ($scope.Cliente.Contatos === undefined) {
                 $scope.Cliente.Contatos = [];
@@ -318,6 +330,8 @@ function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, Swee
         else{
             $scope.GerarPedido($scope.Cliente);
         }
+      }
+
 
     }
     $scope.GerarPedido = function( cliente){
@@ -325,7 +339,7 @@ function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, Swee
       angular.forEach($scope.Produtos, function(value, key){
         total += value.ValorTotal;
       });
-      var pedido = { ItensPedidos: $scope.Produtos, Cliente:  cliente, EndEntrega: $scope.Endereco, Status: "Pendente", Total: total  };
+      var pedido = { ItensPedidos: $scope.Produtos, Cliente:  cliente, EndEntrega: $scope.Endereco, Total: total, FormaPagamento: $scope.FormaPagamento, Status: "Pendente"  };
       Pedido.Salvar(pedido).then(function(result){
         debugger;
         if(result.data.Success){
