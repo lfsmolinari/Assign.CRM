@@ -459,6 +459,37 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                     ]);
                 }
             }
+        })
+        .state('eventos', {
+            url: "/eventos",
+            templateUrl: "views/eventos.html",
+            data: { pageTitle: 'Eventos' },
+            controller: "EventoController",
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                      {
+                          serie: true,
+                          files: ['js/plugins/dataTables/jquery.dataTables.js', 'css/plugins/dataTables/dataTables.bootstrap.css']
+                      },
+                      {
+                          serie: true,
+                          files: ['js/plugins/dataTables/dataTables.bootstrap.js']
+                      },
+                      {
+                          name: 'datatables',
+                          files: ['js/plugins/dataTables/angular-datatables.min.js']
+                      },
+                      {
+                          files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                      },
+                      {
+                          name: 'oitozero.ngSweetAlert',
+                          files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                      }
+                    ]);
+                }
+            }
         });
 
 }

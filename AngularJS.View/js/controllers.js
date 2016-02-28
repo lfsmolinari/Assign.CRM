@@ -1,11 +1,12 @@
-
+var Enumerable = [];
 
 /**
  * MainCtrl - controller
  * Contains severals global data used in diferent view
  *
  */
-function MainCtrl($templateCache) {
+function MainCtrl($templateCache, $linq) {
+    Enumerable = $linq.Enumerable();
     //$templateCache.removeAll();
     /**
      * daterange - Used as initial model for data range picker in Advanced form view

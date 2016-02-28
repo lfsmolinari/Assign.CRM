@@ -13,7 +13,8 @@
         'pascalprecht.translate',       // Angular Translate
         'ngIdle',                       // Idle timer
         'ngCpfCnpj',                    // ng-cpf-cnpj
-        'currencyMask'
+        'currencyMask',
+        'angular-linq'
     ])
 })();
 

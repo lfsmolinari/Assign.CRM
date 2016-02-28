@@ -1,0 +1,81 @@
+<!-- Wrapper-->
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <div ng-include="'views/common/crmNavigation.html' + noCache('?')"></div>
+
+    <!-- Page wraper -->
+    <!-- ng-class with current state name give you the ability to extended customization your view -->
+    <div id="page-wrapper" class="gray-bg {{$state.current.name}}">
+
+        <!-- Page wrapper -->
+        <div ng-include="'views/common/topnavbar.html'"></div>
+
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>Eventos</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="Index.html">Home</a>
+                    </li>
+                    <li class="active">
+                        <strong>Eventos</strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-2">
+
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <form role="form" ng-submit="Pesquisar()">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group col-sm-5 no-padding">
+                                            <!--<input type="email" placeholder="Enter email" class="form-control">-->
+                                            <input type="text" placeholder="Pesquisar" class="form-control" data-ng-model="searchForm">
+                                        </div>
+                                        <div class="form-group col-sm-1" style="padding:22px 0 0 10px;">
+                                            <!-- <button class="btn btn-primary" type="submit">Pesquisar</button> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                                            <thead>
+                                                <tr>
+                                                    <th>Pedido</th>
+                                                    <th>Qtd</th>
+                                                    <th>Data</th>
+                                                    <th>Bairro</th>
+                                                    <th class="col-sm-1"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="evento in Resultado.Eventos | filter: searchForm">
+                                                    <td>{{ evento.codigoPedido }}</td>
+                                                    <td>{{ evento.itemPedido.Quantidade }}</td>
+                                                    <td>{{ evento.itemPedido.DataEntrega | date:'dd/MM/yyyy' }}</td>
+                                                    <td>{{ evento.EndEntrega.Endereco.Bairro }}</td>
+                                                    <td><a href="javascript:void(0);">Finalizar</a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div ng-include="'views/common/footer.html'"></div>
+
+    </div>
+    <!-- End page wrapper-->
+</div>
+<!-- End wrapper-->

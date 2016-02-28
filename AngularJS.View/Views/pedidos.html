@@ -2,7 +2,7 @@
 <div id="wrapper">
 
     <!-- Navigation -->
-    <div ng-include="'views/common/crmNavigation.html'"></div>
+    <div ng-include="'views/common/crmNavigation.html' + noCache('?')"></div>
 
     <!-- Page wraper -->
     <!-- ng-class with current state name give you the ability to extended customization your view -->
@@ -252,7 +252,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr ng-repeat="produto in Produtos">
-                                                        <td>{{produto.DataEntrega | date:'MM/dd/yyyy'}}</td>
+                                                        <td>{{produto.DataEntrega | date:'dd/MM/yyyy'}}</td>
                                                         <td>{{produto.Prazo}}</td>
                                                         <td>{{produto.MaterialColetado.Descricao}}</td>
                                                         <td>{{produto.Quantidade}}</td>

@@ -282,9 +282,22 @@ function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, Swee
     }
 
     $scope.Salvar = function () {
-      debugger;
+      var noError = true;
+      var  message = "";
+
+      if(!$scope.Cliente.CPF && !$scope.Cliente.CNPJ){
+        message += "Favor adicionar um cliente ao pedido!\n\b";
+        noError = false;
+      }
       if(!$scope.FormaPagamento){
-        var  message = "Selecione uma forma de pagamento!\n\b";
+        message += "Selecione uma forma de pagamento!\n\b";
+        noError = false;
+      }
+      if(!$scope.Produtos.length > 0){
+        message += "Favor adicionar os itens do pedido!\n\b";
+        noError = false;
+      }
+      if(!noError){
         SweetAlert.swal({
             title: "Atenção!",
             text: message,

@@ -46,6 +46,9 @@
             <li ui-sref-active="active">
                 <a ui-sref="pedidos"><i class="fa fa-laptop"></i> <span class="nav-label">{{ 'Pedidos' | translate }}</span></a>
             </li>
+            <li ui-sref-active="active">
+                <a ui-sref="eventos"><i class="fa fa-laptop"></i> <span class="nav-label">{{ 'Eventos' | translate }}</span></a>
+            </li>
             <li ng-class="{active: $state.includes('admin')}">
                 <a ui-sref="inbox"><i class="fa fa-cogs"></i> <span class="nav-label">{{ 'Admin' | translate }} </span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level" ng-class="{in: $state.includes('admin')}">
