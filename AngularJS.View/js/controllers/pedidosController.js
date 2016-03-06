@@ -261,9 +261,12 @@ function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, Swee
         message += "Selecione uma tipo de material coletado!\n\b";
       }
       if(noError){
+        var dataRetirada = $scope.Produto.DataEntrega;
         $scope.Produto.ValorTotal = $scope.Produto.Valor * $scope.Produto.Quantidade;
         var produto = {};
         angular.copy($scope.Produto, produto);
+        dataRetirada.setDate(dataRetirada.getDate() + parseInt($scope.Produto.Prazo));
+        produto.DataRetirada = dataRetirada;
         $scope.Produtos.push(produto);
         angular.copy($scope.ProdutoInit, $scope.Produto);
       }

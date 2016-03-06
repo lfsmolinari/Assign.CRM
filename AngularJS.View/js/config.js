@@ -486,6 +486,9 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                       {
                           name: 'oitozero.ngSweetAlert',
                           files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                      },
+                      {
+                          files: ['js/modules/Evento/Controller/EventoDialog.js']
                       }
                     ]);
                 }
