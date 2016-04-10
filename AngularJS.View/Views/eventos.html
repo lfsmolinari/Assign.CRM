@@ -53,14 +53,14 @@
                                             <th>Cliente</th>
                                             <th>Tipo Evento</th>
                                             <th>Qtd</th>
-                                            <th>Data</th>
+                                            <th>Data Entrega</th>
                                             <th>Bairro</th>
                                             <th class="col-sm-1"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="evento in Resultado.Eventos | filter: searchForm">
-                                            <td>{{ evento.codigoPedido }}</td>
+                                            <td><a href="javascript:void(0);" ng-click="VisualizarPedido(evento, true)">{{ evento.codigoPedido }}</a></td>
                                             <td>{{ evento.nomeCliente }}</td>
                                             <td>{{ evento.tipoEvento}}</td>
                                             <td>{{ evento.itemPedido.Quantidade }}</td>
@@ -101,7 +101,7 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="evento in Resultado.EventosRetirada | filter: retiradaSearch">
-                                            <td>{{ evento.codigoPedido }}</td>
+                                            <td><a href="javascript:void(0);" ng-click="VisualizarPedido(evento, false)">{{ evento.codigoPedido }}</a></td>
                                             <td>{{ evento.nomeCliente }}</td>
                                             <td>{{ evento.tipoEvento}}</td>
                                             <td>{{ evento.itemPedido.Quantidade }}</td>

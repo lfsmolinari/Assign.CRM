@@ -4,8 +4,9 @@ angular.module('inspinia')
   $scope.finalizar = function () {
       evento.FianlizaEvento(model._id, model).then(function(result) {
       if(result.data.Success && model.TipoEvento.Descricao.toLowerCase() === "entrega"){
-        evento.AddEvento({Pedido: model.Pedido, TipoEvento: "Retirada", Evento: model  }).then(function (result){
-            $uibModalInstance.close({ success: result.data.Success, mensagem: result.data.Mensagem});
+        model.DataFinalizacao = new Date();
+        evento.AddEvento({Pedido: model.Pedido, TipoEvento: "Retirada", Evento:  model  }).then(function (result){
+              $uibModalInstance.close({ success: result.data.Success, mensagem: result.data.Mensagem});
         });
       }
       else{

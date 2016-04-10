@@ -6,6 +6,9 @@
     service.Salvar = function (item) {
         return executeAPI($http, 'POST', URI_Node + pathAdd, item);
     };
+    service.GetPedido = function(id){
+      return executeAPI($http,'GET', URI_Node + pathAdd + "/Pedido/" + id);
+    }
 }
 function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, SweetAlert, formaPagamento, materialColetado, Cliente) {
 

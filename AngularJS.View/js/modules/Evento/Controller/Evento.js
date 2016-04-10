@@ -84,7 +84,7 @@ angular.module('inspinia')
             else{
               SweetAlert.swal({
                   title: "Erro!",
-                  text: "Não foi possível finalizar esse Evento!\n\b" + resultado.Mensagem,
+                  text: "Não foi possível finalizar esse Evento!\n\b" + result.Mensagem,
                   type: "warning",
                   showCancelButton: false,
                   confirmButtonText: "Ok",
@@ -96,4 +96,23 @@ angular.module('inspinia')
             $scope.refreshResults();
         });
       };
+      //PedidoDialogController
+      $scope.VisualizarPedido = function(evento, isEntrega){
+        var eventoSelecionado = {}
+        if(isEntrega){
+          eventoSelecionado = Enumerable.From($scope.Eventos).Where(function(e){ return e._id === evento.idEvento}).FirstOrDefault();
+        }
+        else {
+          eventoSelecionado = Enumerable.From($scope.EventosRetirada).Where(function(e){ return e._id === evento.idEvento}).FirstOrDefault();
+        }
+        var modalInstance = $uibModal.open({
+              templateUrl: 'views/Dialogs/VisualizarPedido.html',
+              controller: 'PedidoDialogController',
+              resolve: {
+                model: function () {
+                  return {IdPedido : eventoSelecionado.Pedido._id, ItensPedidos: eventoSelecionado.Pedido.ItensPedidos }
+                }
+              }
+          });
+        };
 }]);
