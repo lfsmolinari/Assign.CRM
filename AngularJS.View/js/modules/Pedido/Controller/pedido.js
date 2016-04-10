@@ -10,7 +10,7 @@
       return executeAPI($http,'GET', URI_Node + pathAdd + "/Pedido/" + id);
     }
 }
-function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, SweetAlert, formaPagamento, materialColetado, Cliente) {
+function PedidoController($scope, $http, $stateParams, $q, $window, $uibModal, Pedido, SweetAlert, formaPagamento, materialColetado, Cliente, tags) {
 
     $scope.Cliente = {
         Enderecos: new Array(),
@@ -34,6 +34,7 @@ function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, Swee
      formatYear: 'yy',
       startingDay: 1
     };
+    $scope.HistoricoTags = [];
     $scope.popup = {
       opened: false
     };
@@ -202,6 +203,11 @@ function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, Swee
                     }
 
                     $scope.Contato = contato;
+
+                    tags.GetTagsByCliente($scope.Cliente.CPF).then(function(result){
+                      debugger;
+                      $scope.Cliente.HistoricoTags = result.data;
+                    });
                 }
                 else{
                     SweetAlert.swal({
@@ -226,7 +232,8 @@ function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, Swee
                                 Contatos: new Array(),
                                 TipoPessoa: tipoPessoa,
                                 CPF: cpf,
-                                CNPJ: cnpj
+                                CNPJ: cnpj,
+                                HistoricoTags : []
                             };
 
                             $scope.Endereco = {};
@@ -236,7 +243,8 @@ function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, Swee
                             $scope.Cliente = {
                                 Enderecos: new Array(),
                                 Contatos: new Array(),
-                                TipoPessoa: 1
+                                TipoPessoa: 1,
+                                HistoricoTags : []
                             };
 
                             $scope.Endereco = {};
@@ -256,6 +264,19 @@ function PedidoController($scope, $http, $stateParams, $q, $window, Pedido, Swee
             $scope.Contato = {};
         }
     }
+
+    $scope.VisualizarPedido = function(tag){
+      var eventoSelecionado = tag.Evento;
+      var modalInstance = $uibModal.open({
+            templateUrl: 'views/Dialogs/VisualizarPedido.html',
+            controller: 'PedidoDialogController',
+            resolve: {
+              model: function () {
+                return {IdPedido : eventoSelecionado.Pedido._id, ItensPedidos: eventoSelecionado.Pedido.ItensPedidos, hideStatus: true }
+              }
+            }
+        });
+      };
 
     $scope.addProduto = function(){
       var noError =$scope.Produto.MaterialColetado;

@@ -62,7 +62,39 @@ angular.module('inspinia')
             }
         });
     }
+    $scope.FinalizarEventoRetirada = function(evento){
+      var modalInstance = $uibModal.open({
+            templateUrl: 'views/Dialogs/FinalizarEventoDialog.html',
+            controller: 'EventoDialogController',
+            resolve: {
+              model: function () {
+                return Enumerable.From($scope.EventosRetirada).Where(function(e){ return e._id === evento.idEvento}).FirstOrDefault();
+              }
+            }
+        });
+        modalInstance.result.then(function (result) {
+            if(result.success){
+              SweetAlert.swal({
+                  title: "Sucesso!",
+                  text: "Evento finalizado com sucesso!",
+                  type: "success"
+              });
+            }
+            else{
+              SweetAlert.swal({
+                  title: "Erro!",
+                  text: "Não foi possível finalizar esse Evento!\n\b" + result.Mensagem,
+                  type: "warning",
+                  showCancelButton: false,
+                  confirmButtonText: "Ok",
+                  closeOnConfirm: true,
+                  closeOnCancel: false
+              });
+            }
 
+            $scope.refreshResults();
+        });
+      };
     $scope.FinalizarEvento = function(evento){
       var modalInstance = $uibModal.open({
             templateUrl: 'views/Dialogs/FinalizarEventoDialog.html',

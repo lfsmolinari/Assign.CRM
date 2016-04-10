@@ -1,7 +1,7 @@
 <div class="inmodal">
     <div class="modal-header">
         <h4 class="modal-title">Nro. Pedido: {{Pedido.CodigoPedido}}</h4>
-        <small class="pull-right">{{Pedido.Status.Descricao}}</small>
+        <small class="pull-right" ng-if="!hideStatus">{{Pedido.Status.Descricao}}</small>
     </div>
     <div class="modal-body">
         <div class="row">

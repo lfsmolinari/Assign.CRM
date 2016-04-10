@@ -271,10 +271,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12" ng-hide="true">
+                <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>H&iacute;storico de Tags</h5>
+                            <h5>Hist&oacute;rico de Tags</h5>
                         </div>
                         <div class="ibox-content">
                             <div class="row">
@@ -290,23 +290,11 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>99/99/9999</td>
-                                                <td>151617</td>
-                                                <td>Entrega</td>
-                                                <td>Rua de Dificil acesso: necessario ajudante</td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Lorem Ipsum</td>
-                                                <td>Lorem Ipsum</td>
-                                                <td>Lorem Ipsum</td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Lorem Ipsum</td>
-                                                <td>Lorem Ipsum</td>
-                                                <td>Lorem Ipsum</td>
+                                            <tr ng-repeat="tag in Cliente.HistoricoTags">
+                                                <td>{{ tag.DataInclusao | date:'dd/MM/yyyy' }}</td>
+                                                <td><a href="javascript:void(0);" ng-click="VisualizarPedido(tag)">{{ tag.Evento.Pedido.CodigoPedido }}</a></td>
+                                                <td>{{ tag.Evento.TipoEvento.Descricao}}</td>
+                                                <td>{{tag.Tag}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
