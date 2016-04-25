@@ -408,10 +408,41 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
+        .state('admin.centroDeCusto', {
+            url: "/centrodecusto",
+            templateUrl: "views/centroDeCusto.html",
+            data: { pageTitle: 'Centro de Custo' },
+            controller: "CentroDeCustoCtrl",
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            serie: true,
+                            files: ['js/plugins/dataTables/jquery.dataTables.js', 'css/plugins/dataTables/dataTables.bootstrap.css']
+                        },
+                        {
+                            serie: true,
+                            files: ['js/plugins/dataTables/dataTables.bootstrap.js']
+                        },
+                        {
+                            name: 'datatables',
+                            files: ['js/plugins/dataTables/angular-datatables.min.js']
+                        },
+                        {
+                            files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                        },
+                        {
+                            name: 'oitozero.ngSweetAlert',
+                            files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                        }
+                    ]);
+                }
+            }
+        })
         .state('controleAtivos', {
             url: "/controle-de-ativos",
             templateUrl: "views/controle_ativos.html",
-            data: { pageTitle: 'Pedidos' },
+            data: { pageTitle: 'Controle de Ativos' },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
