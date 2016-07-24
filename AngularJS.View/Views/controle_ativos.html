@@ -42,43 +42,51 @@
                                     <div class="col-sm-12">
                                         <div class="form-group col-sm-6">
                                             <label>Categoria:</label>
-                                            <select type="text" placeholder="" class="form-control"></select>
+                                            <select id="categorias" name="categorias" class="form-control" data-ng-model="model.Categoria" required data-ng-options="c as c.Descricao for c in Categorias track by c._id">
+                                                <option value="">- Selecione -</option>
+                                            </select>
                                         </div>
                                         <div class="form-group col-sm-6">
                                             <label>Centro de Custo:</label>
-                                            <select type="text" placeholder="" class="form-control"></select>
+                                            <select id="centrodeCustos" name="centrodeCustos" class="form-control" data-ng-model="model.CentroDeCusto" required data-ng-options="c as c.Descricao for c in CentroDeCustos track by c._id">
+                                                <option value="">- Selecione -</option>
+                                            </select>
                                         </div>
                                         <div class="form-group col-sm-12">
                                             <label>Descrição:</label>
-                                            <input type="text" placeholder="Email" class="form-control">
+                                            <input type="text" class="form-control" ng-model="model.Descricao">
                                         </div>
                                         <div class="form-group col-sm-6">
                                             <label>Modelo:</label>
-                                            <input type="text" placeholder="" class="form-control">
+                                            <input type="text" placeholder="" class="form-control" ng-model="model.Modelo">
                                         </div>
                                         <div class="form-group col-sm-6">
                                             <label>Fabricante:</label>
-                                            <input type="text" placeholder="Email" class="form-control">
+                                            <input type="text" class="form-control" ng-model="model.Fabricante">
                                         </div>
                                         <div class="form-group col-sm-4">
                                             <label>Ano Frabrica&ccedil;&atilde;o:</label>
-                                            <input type="text" placeholder="" class="form-control">
+                                            <input type="text" placeholder="" class="form-control" ng-model="model.AnoFabricacao">
                                         </div>
                                         <div class="form-group col-sm-4">
                                             <label>Valor:</label>
-                                            <input type="text" placeholder="" class="form-control">
+                                            <div class="input-group m-b">
+                                              <span class="input-group-addon">R$</span><input name="valor" type="text" maxlength="9" currency-mask placeholder="" class="form-control" data-ng-model="model.Valor" required="required">
+                                            </div>
                                         </div>
                                         <div class="form-group col-sm-2">
                                             <label>Deprecia&ccedil;&atilde;o:</label>
-                                            <input type="text" placeholder="" class="form-control">
+                                            <div class="input-group m-b">
+                                              <span class="input-group-addon">R$</span><input name="depreciacao" type="text" maxlength="9" currency-mask placeholder="" class="form-control" data-ng-model="model.Depreciacao" required="required">
+                                            </div>
                                         </div>
                                         <div class="form-group col-sm-2">
                                             <label>Vida Util:</label>
-                                            <input type="number" min="1" value="1" class="form-control">
+                                            <input type="number" min="1" value="1" class="form-control" ng-model="model.VidaUtil">
                                         </div>
                                         <div class="form-group col-sm-12">
                                             <label>Observação:</label>
-                                            <input type="text" placeholder="" class="form-control">
+                                            <input type="text" placeholder="" class="form-control" ng-model="model.Observacao">
                                         </div>
                                     </div>
                                 </div>
