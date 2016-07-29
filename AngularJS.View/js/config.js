@@ -12,7 +12,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
     IdleProvider.idle(5); // in seconds
     IdleProvider.timeout(120); // in seconds
 
-    $urlRouterProvider.otherwise("/dashboard");
+    $urlRouterProvider.otherwise("/register");
     // .when('/cadastro/rh/:idFuncionario', {
     //      templateUrl: 'views/cadastro_rh.html',
     //      controller: 'RhController'
@@ -25,6 +25,29 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
 
 
     $stateProvider
+    
+        .state('register', {
+            url: "/register",
+            templateUrl: "views/register.html",
+            controller:  'RegistrationCtrl',
+            data: { pageTitle: 'Register'},
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                        },
+                        {
+                            name: 'oitozero.ngSweetAlert',
+                            files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                        },
+                        {
+                            files: ['js/modules/Autenticacao/Service/security.js', 'js/modules/Autenticacao/Register/Controller/register.js']
+                        }
+                    ]);
+                }
+            }
+        })
         .state('dashboard', {
             url: "/dashboard",
             templateUrl: "views/dashboard.html",
