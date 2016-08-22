@@ -131,7 +131,7 @@
                                 </div>
                                 <div class="form-group col-sm-7">
                                     <label>Lista de Endere&ccedil;os:</label>
-                                    <select id="enderecos" name="enderecos" class="form-control" required data-ng-model="selectedEnd" data-ng-options='e.Endereco.CEP as (e.Endereco.CEP + " - " + e.Endereco.Logradouro) for e in Pessoa.Enderecos track by e.Endereco.CEP' data-ng-change="ChangeEndereco()">
+                                    <select id="enderecos" name="enderecos" class="form-control" required data-ng-model="selectedEnd" data-ng-options='e as (e.Endereco.CEP + " - " + e.Endereco.Logradouro) for e in Pessoa.Enderecos track by e.Endereco.CEP' data-ng-change="ChangeEndereco()">
                                         <option style="display:none"></option>
                                     </select>
                                 </div>

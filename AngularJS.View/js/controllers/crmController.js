@@ -243,7 +243,6 @@ function RhController($scope, $http, $stateParams, $q, $window, Funcionario, Swe
 
         funcionario.StatusFuncionario = funcionario.Ativo ? 1 : 2;
         Funcionario.Salvar(funcionario, $stateParams.idFuncionario !== undefined).then(function (result) {
-            debugger;
             console.log(result);
             if (result.data.Success)
                 SweetAlert.swal({
