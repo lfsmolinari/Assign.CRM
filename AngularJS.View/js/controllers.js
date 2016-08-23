@@ -5,8 +5,9 @@ var Enumerable = [];
  * Contains severals global data used in diferent view
  *
  */
-function MainCtrl($templateCache, $linq) {
+function MainCtrl($scope, $templateCache, $linq, authToken) {
     Enumerable = $linq.Enumerable();
+    $scope.session = authToken;
     //$templateCache.removeAll();
     /**
      * daterange - Used as initial model for data range picker in Advanced form view

@@ -18,7 +18,8 @@
                         <li><a href="#">Contacts</a></li>
                         <li><a href="#">Mailbox</a></li>
                         <li class="divider"></li>
-                        <li><a href="../login.html">Logout</a></li>
+                        <li><a href="../login.html" ng-if="session.isAuthenticated()">Logout</a></li>
+                        <li><a href="../register.html" ng-if="!session.isAuthenticated()">Register</a></li>
                     </ul>
                 </div>
                 <div class="logo-element">
@@ -60,6 +61,7 @@
                     <li ui-sref-active="active"><a ui-sref="admin.material">Materiais Coletados</a></li>
                     <li ui-sref-active="active"><a ui-sref="admin.centroDeCusto">Centro de Custos</a></li>
                     <li ui-sref-active="active"><a ui-sref="admin.categorias">Categorias</a></li>
+                    <li ui-sref-active="active"><a ui-sref="admin.usuarios">Usuarios</a></li>
                 </ul>
             </li>
         </ul>

@@ -6,13 +6,13 @@
  * Initial there are written state for all view in theme.
  *
  */
-function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdleProvider, KeepaliveProvider) {
+function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdleProvider, KeepaliveProvider, $httpProvider) {
 
     // Configure Idle settings
     IdleProvider.idle(5); // in seconds
     IdleProvider.timeout(120); // in seconds
 
-    $urlRouterProvider.otherwise("/register");
+    $urlRouterProvider.otherwise("/login");
     // .when('/cadastro/rh/:idFuncionario', {
     //      templateUrl: 'views/cadastro_rh.html',
     //      controller: 'RhController'
@@ -25,7 +25,34 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
 
 
     $stateProvider
-    
+        .state('login', {
+            url: "/login",
+            templateUrl: "views/login.html",
+            controller:  'LoginCtrl',
+            data: { pageTitle: 'Login'},
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                        },
+                        {
+                            name: 'oitozero.ngSweetAlert',
+                            files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                        },
+                        {
+                            files: ['js/modules/Autenticacao/Service/security.js', 'js/modules/Autenticacao/Register/Controller/register.js']
+                        }
+                    ]);
+                }
+            }
+        })
+        .state('logout', {
+            url: "/logout",
+            controller:  'logoutCtrl',
+            data: { pageTitle: 'Logout'},
+            resolve: {}
+        })
         .state('register', {
             url: "/register",
             templateUrl: "views/register.html",
@@ -492,6 +519,35 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
+        .state('admin.usuarios', {
+            url: "/usuarios",
+            templateUrl: "views/usuario.html",
+            data: { pageTitle: 'Usuarios' },
+            controller:  'UsuarioCtrl',
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['css/plugins/iCheck/custom.css', 'js/plugins/iCheck/icheck.min.js']
+                        },
+                        {
+                            name: 'datePicker',
+                            files: ['css/plugins/datapicker/angular-datapicker.css', 'js/plugins/datapicker/angular-datepicker.js']
+                        },
+                        {
+                            files: ['js/plugins/jasny/jasny-bootstrap.min.js']
+                        },
+                        {
+                            files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                        },
+                        {
+                            name: 'oitozero.ngSweetAlert',
+                            files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                        }
+                    ]);
+                }
+            }
+        })
         .state('controleAtivos', {
             url: "/controle-de-ativos",
             templateUrl: "views/controle_ativos.html",
@@ -587,6 +643,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         });
 
+        $httpProvider.interceptors.push('authInterceptor')
 }
 angular
     .module('inspinia')

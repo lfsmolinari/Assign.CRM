@@ -120,8 +120,13 @@
                 </ul>
             </li>
             <li>
-                <a href="#">
+                <a ui-sref="logout" ng-if="session.isAuthenticated()">
                     <i class="fa fa-sign-out"></i> Log out
+                </a>
+            </li>
+            <li>
+                <a ui-sref="register" ng-if="!session.isAuthenticated()">
+                    <i class="fa fa-sign-in"></i> Register
                 </a>
             </li>
             <li>

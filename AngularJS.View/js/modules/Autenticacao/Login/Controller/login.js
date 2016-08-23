@@ -1,9 +1,10 @@
 angular.module('inspinia')
-.controller('RegistrationCtrl', ['$scope', '$http',  '$uibModal', 'SweetAlert', 'security','authToken', '$state',
+.controller('LoginCtrl', ['$scope', '$http',  '$uibModal', 'SweetAlert', 'security','authToken', '$state',
 function ($scope, $http,  $uibModal, SweetAlert, security, authToken, $state) {
     $scope.Usuario = {};
-    $scope.SaveUsario = function () {
-      security.AddUsuario($scope.Usuario).then(function(result) {
+    $scope.Submit = function () {
+      debugger;
+      security.Login($scope.Usuario).then(function(result) {
         console.log(result);
         if(result.data.Success){
           authToken.setToken(result.data.session.token);
@@ -23,5 +24,6 @@ function ($scope, $http,  $uibModal, SweetAlert, security, authToken, $state) {
             }
       })
     }
+    authToken.logout();
     
 }]);
