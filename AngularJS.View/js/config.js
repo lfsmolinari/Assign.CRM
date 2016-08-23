@@ -49,7 +49,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('logout', {
             url: "/logout",
-            controller:  'logoutCtrl',
+            controller:  'LogoutCtrl',
             data: { pageTitle: 'Logout'},
             resolve: {}
         })

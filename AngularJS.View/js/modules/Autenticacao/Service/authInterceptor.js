@@ -1,5 +1,5 @@
 angular.module('inspinia')
-.factory('authInterceptor', function (authToken) {
+.factory('authInterceptor', ['authToken','$injector',function (authToken, $injector) {
     return{
         request: function (config) {
             var token = authToken.getToken();
@@ -9,8 +9,12 @@ angular.module('inspinia')
             return config;
             
         },
-        response: function (response) {
+        responseError: function (response) {
+            if(response.status === 401){
+                authToken.logout();
+                $injector.get('$state').go("login");
+            }
             return response;
         }
     }
-});
+}]);
