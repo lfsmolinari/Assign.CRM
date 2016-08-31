@@ -1,5 +1,5 @@
 angular.module('inspinia')
-.factory('authToken', function ($window, $location) {
+.factory('authToken', function ($window, $location, $timeout) {
   var storage = $window.localStorage;
   var cachedToken;
   var cachedSession;
@@ -50,7 +50,9 @@ angular.module('inspinia')
                 }
             }
             if (!hasAccess) {
-                $location.path("/accessDenied");
+                $timeout(function(){
+                    $location.path("/accessDenied");
+                });
             }
             return hasAccess;
         },

@@ -61,6 +61,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             templateUrl: "views/common/content.html"
         })
         .state('accessDenied', {
+            secure: false,
             url: "/accessDenied",
             templateUrl: "views/accessDenied.html",
             data: { pageTitle: 'Acesso Negado' }
