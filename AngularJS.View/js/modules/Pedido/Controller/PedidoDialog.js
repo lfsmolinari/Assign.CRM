@@ -1,7 +1,6 @@
 angular.module('inspinia')
 .controller('PedidoDialogController', function ($scope, $uibModalInstance, Pedido, model) {
   Pedido.GetPedido(model.IdPedido).then(function(result){
-    debugger;
     $scope.hideStatus = model.hideStatus;
     $scope.Cliente = result.data.Cliente;
     $scope.Pedido = result.data;

@@ -1,20 +1,45 @@
 angular.module('inspinia')
-.controller('UsuarioCtrl', function ($scope, $http, SweetAlert, usuario) {
+.controller('UsuarioCtrl', function ($scope, $http, $uibModal, SweetAlert, usuario, Funcionario) {
     $scope.Usuario = {};
     $scope.Resultado = {};
     $scope.Resultado.Usuarios = new Array();
     $scope.Usuario.Descricao = "";
 
     $scope.refreshResults = function(){
-        usuario.GetUsuarios().then(function (resultado) {
-            $scope.Resultado.Usuarios = resultado.data;
+        Funcionario.GetFuncionariosAtivos().then(function (resultado) {
+            console.log(resultado.data);
+            $scope.Resultado.Funcionarios = resultado.data;
         });
     }
     $scope.refreshResults();
-
+    $scope.criarUsuario = function(index){
+        var funcionario = $scope.Resultado.Funcionarios[index];
+        var modalInstance = $uibModal.open({
+            templateUrl: 'views/register.html'+ noCache('?'),
+            controller: 'RegistrationCtrl',
+            resolve: {
+              model: function () {
+                return {Funcionario : funcionario }
+              }
+            }
+        });
+    }
+    $scope.gerenciarPermissoes = function(index){
+        var funcionario = $scope.Resultado.Funcionarios[index];
+        var modalInstance = $uibModal.open({
+            templateUrl: 'views/permissoes.html'+ noCache('?'),
+            controller: 'PermissaoCtrl',
+            resolve: {
+              model: function () {
+                return {user : funcionario.User }
+              }
+            }
+        });
+    }
     $scope.Excluir = function (index) {
-        if ($scope.Resultado.Usuarios[index]._id) {
-            usuario.DeleteUsuario($scope.Resultado.Usuarios[index]._id).then(function (resultado) {
+        var user = $scope.Resultado.Funcionarios[index].User;
+        if (user && user._id) {
+            usuario.DeleteUsuario(user._id).then(function (resultado) {
                 if (resultado.data.Success) {
                     $scope.refreshResults();
 

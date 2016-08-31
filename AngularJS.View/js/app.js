@@ -6,7 +6,7 @@
  var URI_Node = 'http://nodejs-lmolinari.rhcloud.com/';
  //var URI_Node = 'http://localhost:8080/';
 (function () {
-    angular.module('inspinia', [
+    var app = angular.module('inspinia', [
         'ui.router',                    // Routing
         'oc.lazyLoad',                  // ocLazyLoad
         'ui.bootstrap',                 // Ui Bootstrap

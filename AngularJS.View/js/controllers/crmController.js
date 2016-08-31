@@ -31,26 +31,7 @@ function procuraCEP(cep) {
 
     return endereco
 }
-function executeRhAPI($http, ENDPOINT_URI) {
-    var service = this,
-    pathAdd = 'Funcionarios',
-    pathUpd = 'Funcionarios/Funcionario/';
 
-    function getUrl() {
-        return ENDPOINT_URI + path;
-    }
-
-    function getUrlForId(itemId) {
-        return getUrl(path) + itemId;
-    }
-
-    service.Salvar = function (item, isUpdate) {
-        if(isUpdate)
-            return executeAPI($http, 'PUT', URI_Node + pathUpd + item._id, item);
-        else
-            return executeAPI($http, 'POST', URI_Node + pathAdd, item);
-    };
-}
 function metodosClientes($http, ENDPOINT_URI) {
     var service = this,
     pathAdd = 'Pessoas',
@@ -288,7 +269,7 @@ function ConsultarRhController($scope, $http, Funcionario) {
     $scope.Funcionario.CPF = "";
     $scope.Funcionario.Nome = "";
 
-    executeAPI($http, 'GET', URI_Node + 'Funcionarios', null).then(function (resultado) {
+    Funcionario.GetFuncionarios().then(function (resultado) {
         console.log(resultado);
         $scope.Resultado.Show = true;
         $scope.Resultado.Funcionarios = resultado.data;
@@ -705,5 +686,4 @@ angular.module('inspinia')
 .controller('ConsultarClienteController', ConsultarClienteController)
 .controller('ConsultarFornecedorController', ConsultarFornecedorController)
 .constant('ENDPOINT_URI', URI)
-.service('Funcionario', executeRhAPI)
 .service('Cliente', metodosClientes);

@@ -3,14 +3,14 @@
         <ul side-navigation class="nav metismenu" id="side-menu">
             <li class="nav-header">
 
-                <div class="dropdown profile-element" dropdown>
+                <div class="dropdown profile-element" uib-dropdown>
                     <img alt="image" class="img-circle" src="img/profile_small.jpg" />
-                    <a class="dropdown-toggle" dropdown-toggle href>
+                    <a class="dropdown-toggle" uib-dropdown-toggle href>
                         <span class="clear">
                             <span class="block m-t-xs">
-                                <strong class="font-bold">Luis Molinari</strong>
+                                <strong class="font-bold">{{session.get().user.Funcionario.Nome}}</strong>
                             </span>
-                            <span class="text-muted text-xs block">Desenvolvedor <b class="caret"></b></span>
+                            <span class="text-muted text-xs block">{{session.get().user.username}} <b class="caret"></b></span>
                         </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
@@ -50,9 +50,9 @@
             <li ui-sref-active="active">
                 <a ui-sref="eventos"><i class="fa fa-laptop"></i> <span class="nav-label">{{ 'Eventos' | translate }}</span></a>
             </li>
-            <li ui-sref-active="active">
+            <!--<li ui-sref-active="active">
                 <a ui-sref="controleAtivos"><i class="fa fa-laptop"></i> <span class="nav-label">{{ 'Controle de Ativos' | translate }}</span></a>
-            </li>
+            </li>-->
             <li ng-class="{active: $state.includes('admin')}">
                 <a ui-sref="inbox"><i class="fa fa-cogs"></i> <span class="nav-label">{{ 'Admin' | translate }} </span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level" ng-class="{in: $state.includes('admin')}">

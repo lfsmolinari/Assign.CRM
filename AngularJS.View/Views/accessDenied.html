@@ -1,0 +1,39 @@
+<!-- Wrapper-->
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <div ng-include="'views/common/crmNavigation.html' + noCache('?')"></div>
+
+    <!-- Page wraper -->
+    <!-- ng-class with current state name give you the ability to extended customization your view -->
+    <div id="page-wrapper" class="gray-bg {{$state.current.name}}">
+
+        <!-- Page wrapper -->
+        <div ng-include="'views/common/topnavbar.html'"></div>
+
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-4">
+                <h2>Acesso Negado</h2>
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="col-lg-12">
+                <div class="wrapper wrapper-content">
+                    <div class="middle-box text-center animated fadeInRightBig">
+                        <h3 class="font-bold">Acesso Negado</h3>
+
+                        <div class="error-desc">
+                            Você nao tem permissao para acessar essa página.
+                            <br/><a ui-sref="dashboard" class="btn btn-primary m-t">Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div ng-include="'views/common/footer.html'"></div>
+
+    </div>
+    <!-- End page wrapper-->
+</div>
+<!-- End wrapper-->

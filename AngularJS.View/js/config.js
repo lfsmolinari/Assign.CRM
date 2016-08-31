@@ -26,6 +26,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
 
     $stateProvider
         .state('login', {
+            secure: false,
             url: "/login",
             templateUrl: "views/login.html",
             controller:  'LoginCtrl',
@@ -48,12 +49,24 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('logout', {
+            secure: false,
             url: "/logout",
             controller:  'LogoutCtrl',
             data: { pageTitle: 'Logout'},
             resolve: {}
         })
+        .state('error', {
+            abstract: true,
+            url: "/error",
+            templateUrl: "views/common/content.html"
+        })
+        .state('accessDenied', {
+            url: "/accessDenied",
+            templateUrl: "views/accessDenied.html",
+            data: { pageTitle: 'Acesso Negado' }
+        })
         .state('register', {
+            secure: true,
             url: "/register",
             templateUrl: "views/register.html",
             controller:  'RegistrationCtrl',
@@ -76,6 +89,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('dashboard', {
+            secure: true,
             url: "/dashboard",
             templateUrl: "views/dashboard.html",
             data: { pageTitle: 'Dashboard' },
@@ -100,11 +114,13 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('cadastro', {
+            secure: true,
             abstract: true,
             url: "/cadastro",
             templateUrl: "views/common/content.html",
         })
         .state('cadastro.rh', {
+            secure: true,
             url: "/rh",
             templateUrl: "views/cadastro_rh.html",
             data: { pageTitle: 'Cadastro de Funcionário' },
@@ -136,6 +152,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('cadastro.rhalteracao', {
+            secure: true,
             url: "/rh/:idFuncionario",
             templateUrl: "views/cadastro_rh.html",
             data: { pageTitle: 'Cadastro de Funcion�rio' },
@@ -168,6 +185,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('cadastro.cliente', {
+            secure: true,
             url: "/cliente",
             templateUrl: "views/cadastro_cliente.html",
             data: { pageTitle: 'Cadastro de Cliente' },
@@ -199,6 +217,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('cadastro.clientealteracao', {
+            secure: true,
             url: "/cliente/:IdPessoa",
             templateUrl: "views/cadastro_cliente.html",
             data: { pageTitle: 'Cadastro de Cliente' },
@@ -230,6 +249,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('cadastro.fornecedoralteracao', {
+            secure: true,
             url: "/fornecedor/:IdPessoa",
             templateUrl: "views/cadastro_cliente.html",
             data: { pageTitle: 'Cadastro de Fornecedor' },
@@ -261,6 +281,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('cadastro.fornecedor', {
+            secure: true,
             url: "/fornecedor",
             templateUrl: "views/cadastro_cliente.html",
             data: { pageTitle: 'Cadastro de Fornecedor' },
@@ -292,11 +313,13 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('consultar', {
+            secure: true,
             abstract: true,
             url: "/consultar",
             templateUrl: "views/common/content.html",
         })
         .state('consultar.rh', {
+            secure: true,
             url: "/rh",
             templateUrl: "views/consultar_rh.html",
             data: { pageTitle: 'Consultar Funcion�rio' },
@@ -320,6 +343,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('consultar.cliente', {
+            secure: true,
             url: "/cliente",
             templateUrl: "views/consultar_clientes.html",
             data: { pageTitle: 'Consultar Cliente' },
@@ -341,6 +365,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('consultar.fornecedor', {
+            secure: true,
             url: "/fornecedor",
             templateUrl: "views/consultar_fornecedor.html",
             data: { pageTitle: 'Consultar Fornecedor' },
@@ -362,11 +387,13 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('admin', {
+            secure: true,
             abstract: true,
             url: "/admin",
             templateUrl: "views/common/content.html",
         })
         .state('admin.cargos', {
+            secure: true,
             url: "/cargo",
             templateUrl: "views/cargos.html",
             data: { pageTitle: 'Consultar Funcion�rio' },
@@ -397,6 +424,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('admin.formaPgtos', {
+            secure: true,
             url: "/formaPagamentos",
             templateUrl: "views/formaPagamentos.html",
             data: { pageTitle: 'Forma de Pagamentos' },
@@ -428,6 +456,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('admin.material', {
+            secure: true,
             url: "/materialcoletado",
             templateUrl: "views/materialColetado.html",
             data: { pageTitle: 'Material Coletado' },
@@ -459,6 +488,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('admin.centroDeCusto', {
+            secure: true,
             url: "/centrodecusto",
             templateUrl: "views/centroDeCusto.html",
             data: { pageTitle: 'Centro de Custo' },
@@ -490,6 +520,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('admin.categorias', {
+            secure: true,
             url: "/categoria",
             templateUrl: "views/ativoCategorias.html",
             data: { pageTitle: 'Categoria' },
@@ -520,6 +551,8 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('admin.usuarios', {
+            secure: true,
+            roles:['root'],
             url: "/usuarios",
             templateUrl: "views/usuario.html",
             data: { pageTitle: 'Usuarios' },
@@ -549,6 +582,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('controleAtivos', {
+            secure: true,
             url: "/controle-de-ativos",
             templateUrl: "views/controle_ativos.html",
             data: { pageTitle: 'Controle de Ativos' },
@@ -578,6 +612,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('pedidos', {
+            secure: true,
             url: "/pedidos",
             templateUrl: "views/pedidos.html",
             data: { pageTitle: 'Pedidos' },
@@ -609,6 +644,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('eventos', {
+            secure: true,
             url: "/eventos",
             templateUrl: "views/eventos.html",
             data: { pageTitle: 'Eventos' },

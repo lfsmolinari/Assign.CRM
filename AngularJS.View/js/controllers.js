@@ -5,7 +5,26 @@ var Enumerable = [];
  * Contains severals global data used in diferent view
  *
  */
-function MainCtrl($scope, $templateCache, $linq, authToken) {
+
+// taken from http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
+var createGuid = function () {
+    var S4 = function () { return Math.floor(Math.random() * 0x10000).toString(16); };
+    return S4() + S4() + S4() + S4() + S4() + S4() + S4() + S4();
+};
+
+var noCacheId = window.param_BuildId ? window.param_BuildId : createGuid();
+var noCache = function (symbol) {
+    // this should be used in the definition of the template url to prevent caching of old template version
+    // createGuid() is only used in debug mode
+    // after the deployment, the templates will be reloaded because the param_BuildId will change
+    return symbol + "ridapinc=" +  noCacheId;
+};
+function MainCtrl($scope, $templateCache, $linq, authToken,$rootScope) {
+    $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+            if (toState) {
+                authToken.checkRouteRoles(toState);                  
+            }
+        });
     Enumerable = $linq.Enumerable();
     $scope.session = authToken;
     //$templateCache.removeAll();

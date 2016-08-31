@@ -7,7 +7,7 @@ function ($scope, $http,  $uibModal, SweetAlert, security, authToken, $state) {
       security.Login($scope.Usuario).then(function(result) {
         console.log(result);
         if(result.data.Success){
-          authToken.setToken(result.data.session.token);
+          authToken.setSession(result.data.session);
           $state.go('dashboard');
         }
         else {

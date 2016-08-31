@@ -1,7 +1,7 @@
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Tipo de Materiais Coletados</h2>
+        <h2>Usuarios</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="Index.html">Home</a>
@@ -10,7 +10,7 @@
                 <a>Admin</a>
             </li>
             <li class="active">
-                <strong>Materiais Coletados</strong>
+                <strong>Usuarios</strong>
             </li>
         </ol>
     </div>
@@ -30,15 +30,19 @@
                                     <thead>
                                         <tr>
                                             <th style="width:40%">ID</th>
-                                            <th>Usario</th>
-                                            <th class="col-sm-1"></th>
+                                            <th>Funcionario</th>
+                                            <th class="col-sm-3"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="usuario in Resultado.Usuarios">
-                                            <td>{{ usuario._id }}</td>
-                                            <td>{{ usuario.email }}</td>
-                                            <td><a href="javascript:void()" title="Remover" data-ng-click="Excluir($index)"><i class="fa fa-trash text-navy"></i></a>&nbsp;&nbsp;&nbsp;</td>
+                                        <tr ng-repeat="funcionario in Resultado.Funcionarios">
+                                            <td>{{ funcionario._id }}</td>
+                                            <td>{{ funcionario.Nome }}</td>
+                                            <td>
+                                                <a href="javascript:void()" title="Criar Usuario" data-ng-click="criarUsuario($index)" ng-if='!funcionario.User'>Criar Usuário</a>&nbsp;&nbsp;&nbsp;
+                                                <a href="javascript:void()" title="Permissoes" data-ng-click="gerenciarPermissoes($index)" ng-if='!!funcionario.User'>Permissoes</a>&nbsp;&nbsp;&nbsp;
+                                                <a href="javascript:void()" title="Delete Usuario" data-ng-click="Excluir($index)" ng-if='!!funcionario.User'>Excluir Usuario</a>&nbsp;&nbsp;&nbsp;
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
