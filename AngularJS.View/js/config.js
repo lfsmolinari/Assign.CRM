@@ -12,7 +12,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
     IdleProvider.idle(5); // in seconds
     IdleProvider.timeout(120); // in seconds
 
-    $urlRouterProvider.otherwise("/login");
+    $urlRouterProvider.otherwise("/eventos");
     // .when('/cadastro/rh/:idFuncionario', {
     //      templateUrl: 'views/cadastro_rh.html',
     //      controller: 'RhController'
@@ -68,6 +68,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('register', {
             secure: true,
+            roles:['root'],
             url: "/register",
             templateUrl: "views/register.html",
             controller:  'RegistrationCtrl',
@@ -92,8 +93,11 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         .state('dashboard', {
             secure: true,
             url: "/dashboard",
-            templateUrl: "views/dashboard.html",
+            templateUrl: "views/common/content.html",
             data: { pageTitle: 'Dashboard' },
+            controller: function($scope, $location){
+                $location.path("#");
+            },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
@@ -122,6 +126,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('cadastro.rh', {
             secure: true,
+            roles:['mgr'],
             url: "/rh",
             templateUrl: "views/cadastro_rh.html",
             data: { pageTitle: 'Cadastro de Funcionário' },
@@ -154,6 +159,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('cadastro.rhalteracao', {
             secure: true,
+            roles:['mgr'],
             url: "/rh/:idFuncionario",
             templateUrl: "views/cadastro_rh.html",
             data: { pageTitle: 'Cadastro de Funcion�rio' },
@@ -251,6 +257,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('cadastro.fornecedoralteracao', {
             secure: true,
+            roles:['mgr'],
             url: "/fornecedor/:IdPessoa",
             templateUrl: "views/cadastro_cliente.html",
             data: { pageTitle: 'Cadastro de Fornecedor' },
@@ -283,6 +290,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('cadastro.fornecedor', {
             secure: true,
+            roles:['mgr'],
             url: "/fornecedor",
             templateUrl: "views/cadastro_cliente.html",
             data: { pageTitle: 'Cadastro de Fornecedor' },
@@ -321,6 +329,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('consultar.rh', {
             secure: true,
+            roles:['mgr'],
             url: "/rh",
             templateUrl: "views/consultar_rh.html",
             data: { pageTitle: 'Consultar Funcion�rio' },
@@ -367,6 +376,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('consultar.fornecedor', {
             secure: true,
+            roles:['mgr'],
             url: "/fornecedor",
             templateUrl: "views/consultar_fornecedor.html",
             data: { pageTitle: 'Consultar Fornecedor' },
@@ -389,12 +399,14 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('admin', {
             secure: true,
+            roles:['root'],
             abstract: true,
             url: "/admin",
             templateUrl: "views/common/content.html",
         })
         .state('admin.cargos', {
             secure: true,
+            roles:['root'],
             url: "/cargo",
             templateUrl: "views/cargos.html",
             data: { pageTitle: 'Consultar Funcion�rio' },
@@ -426,6 +438,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('admin.formaPgtos', {
             secure: true,
+            roles:['root'],
             url: "/formaPagamentos",
             templateUrl: "views/formaPagamentos.html",
             data: { pageTitle: 'Forma de Pagamentos' },
@@ -458,6 +471,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('admin.material', {
             secure: true,
+            roles:['root'],
             url: "/materialcoletado",
             templateUrl: "views/materialColetado.html",
             data: { pageTitle: 'Material Coletado' },
@@ -490,6 +504,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('admin.centroDeCusto', {
             secure: true,
+            roles:['root'],
             url: "/centrodecusto",
             templateUrl: "views/centroDeCusto.html",
             data: { pageTitle: 'Centro de Custo' },
@@ -522,6 +537,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('admin.categorias', {
             secure: true,
+            roles:['root'],
             url: "/categoria",
             templateUrl: "views/ativoCategorias.html",
             data: { pageTitle: 'Categoria' },
@@ -584,6 +600,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('controleAtivos', {
             secure: true,
+            roles:['root'],
             url: "/controle-de-ativos",
             templateUrl: "views/controle_ativos.html",
             data: { pageTitle: 'Controle de Ativos' },
@@ -647,7 +664,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         .state('eventos', {
             secure: true,
             url: "/eventos",
-            templateUrl: "views/eventos.html",
+            templateUrl: "views/eventos.html" + noCache("?"),
             data: { pageTitle: 'Eventos' },
             controller: "EventoController",
             resolve: {

@@ -34,7 +34,6 @@ angular.module('inspinia')
             storage.removeItem(userSession);
         },
         checkRouteRoles: function (state) {
-            debugger;
             if (state.secure == undefined) {
                 throw "State security is not defined, please configure the state properties [secure, roles, ...] in states.js";
             }

@@ -1,7 +1,6 @@
 angular.module('inspinia')
 .controller('RegistrationCtrl', ['$scope', '$http',  '$uibModalInstance', 'SweetAlert', 'security','authToken', '$state','model',
 function ($scope, $http,  $uibModalInstance, SweetAlert, security, authToken, $state, model) {
-    debugger;
     $scope.Usuario = {};
     $scope.Usuario.Funcionario = model.Funcionario;
     $scope.SaveUsario = function () {

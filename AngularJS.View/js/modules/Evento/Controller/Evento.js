@@ -9,7 +9,9 @@ angular.module('inspinia')
     $scope.refreshResults = function(){
       $scope.GetEventosEntrega();
       $scope.GetEventosRetirada();
+      $scope.GetEventosFinalizados();
     }
+
     $scope.GetEventosEntrega = function(){
       evento.GetEventosEntrega().then(function (resultado) {
         //console.log(resultado.data);
@@ -49,6 +51,27 @@ angular.module('inspinia')
           }
           $scope.Resultado.EventosRetirada = Enumerable.From(itens).OrderBy(function(i){ return i.itemPedido.DataEntrega}).ToArray();
           //console.log(itens)
+      });
+    }
+
+    $scope.GetEventosFinalizados = function(){
+      evento.GetEventosFinalizados().then(function (resultado) {
+        console.log(resultado.data);
+          $scope.EventosFinalizados = resultado.data;
+          var itensPedidos = Enumerable.From(resultado.data).Select(function(evento){
+            console.log(evento);
+            return Enumerable.From(evento.Pedido.ItensPedidos).Select(function(item){
+                return { idEvento: evento._id, nomeCliente: evento.Pedido.Cliente.Nome ,codigoPedido: evento.Pedido.CodigoPedido, EndEntrega: evento.Pedido.EndEntrega , itemPedido: item, tipoEvento: evento.TipoEvento.Descricao}
+            }).ToArray();
+          }).ToArray();
+          var itens = [];
+          for (var i = 0; i < itensPedidos.length; i++) {
+            for (var j = 0; j < itensPedidos[i].length; j++) {
+              itens.push(itensPedidos[i][j]);
+            }
+          }
+          $scope.Resultado.EventosFinalizados = Enumerable.From(itens).OrderBy(function(i){ return i.itemPedido.DataFinalizacao}).ToArray();
+          console.log(itens)
       });
     }
 
@@ -128,14 +151,20 @@ angular.module('inspinia')
             $scope.refreshResults();
         });
       };
-      //PedidoDialogController
-      $scope.VisualizarPedido = function(evento, isEntrega){
+
+      $scope.VisualizarPedido = function(evento, tipoEvento){
         var eventoSelecionado = {}
-        if(isEntrega){
-          eventoSelecionado = Enumerable.From($scope.Eventos).Where(function(e){ return e._id === evento.idEvento}).FirstOrDefault();
-        }
-        else {
-          eventoSelecionado = Enumerable.From($scope.EventosRetirada).Where(function(e){ return e._id === evento.idEvento}).FirstOrDefault();
+        switch (tipoEvento.toLowerCase()) {
+          default:
+          case 'entrega':
+            eventoSelecionado = Enumerable.From($scope.Eventos).Where(function(e){ return e._id === evento.idEvento}).FirstOrDefault();  
+            break;
+          case 'retirada':
+            eventoSelecionado = Enumerable.From($scope.EventosRetirada).Where(function(e){ return e._id === evento.idEvento}).FirstOrDefault();
+            break;
+          case 'finalizado':
+            eventoSelecionado = Enumerable.From($scope.EventosFinalizados).Where(function(e){ return e._id === evento.idEvento}).FirstOrDefault();
+            break;
         }
         var modalInstance = $uibModal.open({
               templateUrl: 'views/Dialogs/VisualizarPedido.html',

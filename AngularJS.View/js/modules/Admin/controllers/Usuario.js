@@ -23,6 +23,9 @@ angular.module('inspinia')
               }
             }
         });
+        modalInstance.result.then(function (result) {
+            $scope.refreshResults();
+        });
     }
     $scope.gerenciarPermissoes = function(index){
         var funcionario = $scope.Resultado.Funcionarios[index];

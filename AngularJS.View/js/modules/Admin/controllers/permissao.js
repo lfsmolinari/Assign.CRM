@@ -1,7 +1,6 @@
 angular.module('inspinia')
 .controller('PermissaoCtrl', ['$scope', '$http',  '$uibModalInstance', 'SweetAlert','usuario', 'security','authToken', '$state','model',
 function ($scope, $http,  $uibModalInstance, SweetAlert, usuario, security, authToken, $state, model) {
-    debugger;
     $scope.Usuario = {};
     $scope.Usuario = model.user;
     usuario.GetAllPermissions().then(function(result){
@@ -18,7 +17,7 @@ function ($scope, $http,  $uibModalInstance, SweetAlert, usuario, security, auth
       usuario.SaveUsuarioPermissions($scope.Usuario).then(function(result) {
         console.log(result);
         if(result.data.Success){
-           $uibModalInstance.dismiss('success')
+           $uibModalInstance.close('success')
         }
         else {
                 SweetAlert.swal({

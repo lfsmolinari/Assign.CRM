@@ -13,8 +13,13 @@ angular.module('inspinia')
             if(response.status === 401){
                 authToken.logout();
                 $injector.get('$state').go("login");
+                throw "401 (Unauthorized)";
             }
-            return response;
+            if(response.status === 403){
+                $injector.get('$location').path("/accessDenied");
+                throw "403 (Forbidden)";
+            }
+            //return response;
         }
     }
 }]);

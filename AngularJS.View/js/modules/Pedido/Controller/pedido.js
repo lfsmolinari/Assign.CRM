@@ -205,7 +205,6 @@ function PedidoController($scope, $http, $stateParams, $q, $window, $uibModal, P
                     $scope.Contato = contato;
 
                     tags.GetTagsByCliente($scope.Cliente.CPF).then(function(result){
-                      debugger;
                       $scope.Cliente.HistoricoTags = result.data;
                     });
                 }
@@ -381,7 +380,6 @@ function PedidoController($scope, $http, $stateParams, $q, $window, $uibModal, P
       });
       var pedido = { ItensPedidos: $scope.Produtos, Cliente:  cliente, EndEntrega: $scope.Endereco, Total: total, FormaPagamento: $scope.FormaPagamento, Status: "Pendente"  };
       Pedido.Salvar(pedido).then(function(result){
-        debugger;
         if(result.data.Success){
           SweetAlert.swal({
               title: "Sucesso!",

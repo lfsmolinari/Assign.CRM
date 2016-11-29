@@ -10,6 +10,10 @@ angular.module('inspinia')
         return executeAPI($http, 'GET', URI_Node + 'Eventos/Retirada')
     };
 
+    service.GetEventosFinalizados = function(){
+        return executeAPI($http, 'GET', URI_Node + 'Eventos/Finalizados')
+    }
+
     service.AddEvento = function (model) {
         return executeAPI($http, 'POST', URI_Node + 'Eventos', model)
     };

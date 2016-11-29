@@ -3,7 +3,6 @@ angular.module('inspinia')
 function ($scope, $http,  $uibModal, SweetAlert, security, authToken, $state) {
     $scope.Usuario = {};
     $scope.Submit = function () {
-      debugger;
       security.Login($scope.Usuario).then(function(result) {
         console.log(result);
         if(result.data.Success){

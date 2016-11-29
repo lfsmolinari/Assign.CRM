@@ -60,7 +60,7 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="evento in Resultado.Eventos | filter: searchForm">
-                                            <td><a href="javascript:void(0);" ng-click="VisualizarPedido(evento, true)">{{ evento.codigoPedido }}</a></td>
+                                            <td><a href="javascript:void(0);" ng-click="VisualizarPedido(evento, 'entrega')">{{ evento.codigoPedido }}</a></td>
                                             <td>{{ evento.nomeCliente }}</td>
                                             <td>{{ evento.tipoEvento}}</td>
                                             <td>{{ evento.itemPedido.Quantidade }}</td>
@@ -101,13 +101,52 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="evento in Resultado.EventosRetirada | filter: retiradaSearch">
-                                            <td><a href="javascript:void(0);" ng-click="VisualizarPedido(evento, false)">{{ evento.codigoPedido }}</a></td>
+                                            <td><a href="javascript:void(0);" ng-click="VisualizarPedido(evento, 'retirada')">{{ evento.codigoPedido }}</a></td>
                                             <td>{{ evento.nomeCliente }}</td>
                                             <td>{{ evento.tipoEvento}}</td>
                                             <td>{{ evento.itemPedido.Quantidade }}</td>
                                             <td>{{ evento.itemPedido.DataRetirada | date:'dd/MM/yyyy' }}</td>
                                             <td>{{ evento.EndEntrega.Endereco.Bairro }}</td>
                                             <td><a href="javascript:void(0);" ng-click="FinalizarEventoRetirada(evento)">Finalizar</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                      </div>
+                  </uib-tab>
+                  <uib-tab heading="Finalizados">
+                      <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group col-sm-5 no-padding">
+                                    <!--<input type="email" placeholder="Enter email" class="form-control">-->
+                                    <input type="text" placeholder="Pesquisar" class="form-control" data-ng-model="finalizadosSearch">
+                                </div>
+                                <div class="form-group col-sm-1" style="padding:22px 0 0 10px;">
+                                    <!-- <button class="btn btn-primary" type="submit">Pesquisar</button> -->
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <table class="table table-striped table-bordered table-hover dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Pedido</th>
+                                            <th>Cliente</th>
+                                            <th>Tipo Evento</th>
+                                            <th>Qtd</th>
+                                            <th>Data</th>
+                                            <th>Bairro</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="evento in Resultado.EventosFinalizados | filter: finalizadosSearch">
+                                            <td><a href="javascript:void(0);" ng-click="VisualizarPedido(evento, 'finalizado')">{{ evento.codigoPedido }}</a></td>
+                                            <td>{{ evento.nomeCliente }}</td>
+                                            <td>{{ evento.tipoEvento}}</td>
+                                            <td>{{ evento.itemPedido.Quantidade }}</td>
+                                            <td>{{ evento.itemPedido.DataRetirada | date:'dd/MM/yyyy' }}</td>
+                                            <td>{{ evento.EndEntrega.Endereco.Bairro }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
