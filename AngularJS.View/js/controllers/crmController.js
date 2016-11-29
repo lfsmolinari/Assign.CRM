@@ -351,6 +351,7 @@ function ClienteController($scope, $http, $stateParams, $q, $window, Cliente, Sw
         executeAPI($http, 'GET', URI_Node + 'Pessoas/Pessoa/' + $stateParams.IdPessoa, null).then(function (resultado) {
             console.log("Node.JS", resultado.data);
             $scope.Pessoa = resultado.data;
+            $scope.PessoaCopy = angular.copy($scope.Pessoa);
             //$scope.Bloquear = $scope.Pessoa.StatusPessoa == 1 ? false : true;
             var endereco = {};
             var contato = {};
@@ -384,6 +385,10 @@ function ClienteController($scope, $http, $stateParams, $q, $window, Cliente, Sw
             $scope.showPF = ($scope.Pessoa.TipoPessoa === 1);
         });
     }
+
+    $scope.CancelarAlteracaoPessoa = function () {
+      $scope.Pessoa = angular.copy($scope.PessoaCopy);
+    };
 
     $scope.FindCEP = function () {
         var endereco = procuraCEP($('#txtCep').val());
